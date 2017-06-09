@@ -1,0 +1,43 @@
+<scxml initial="ToutDroit" version="1.0" xmlns="http://www.w3.org/2005/07/scxml"><!--   node-size-and-position x=0 y=0 w=990 h=750  -->
+ <script>
+
+from API import TQuad_API
+TQuad = TQuad_API()
+ </script>
+ <state id="ToutDroit"><!--   node-size-and-position x=180 y=50 w=75 h=75  -->
+  <onentry>
+   <script>
+
+TQuad.AvancerLongitudinal(0.2)
+   </script>
+  </onentry>
+  <transition cond="after(2)" target="Lateral"><!--   edge-path [Lateral]  pointx=0 pointy=17 offsetx=3 offsety=0  --></transition>
+ </state>
+ <state id="Rotation"><!--   node-size-and-position x=550 y=50 w=75 h=75  -->
+  <onentry>
+   <script>
+
+TQuad.Pivoter(120,0)
+   </script>
+  </onentry>
+  <transition cond="after(2)" target="Fin"><!--   edge-path [Fin]  pointx=0 pointy=18 offsetx=3 offsety=1  --></transition>
+ </state>
+ <state id="Lateral"><!--   node-size-and-position x=360 y=50 w=75 h=75  -->
+  <onentry>
+   <script>
+
+
+TQuad.AvancerLateral(0.2)
+   </script>
+  </onentry>
+  <transition cond="after(2)" target="Rotation"><!--   edge-path [Rotation]  pointx=0 pointy=18 offsetx=8 offsety=1  --></transition>
+ </state>
+ <final id="Fin"><!--   node-size-and-position x=760 y=50 w=75 h=75  -->
+  <onentry>
+   <script>
+
+TQuad.TensionMoteurs(0,0,0,0)
+   </script>
+  </onentry>
+ </final>
+</scxml>

@@ -1,0 +1,30 @@
+<scxml initial="ToutDroit" version="1.0" xmlns="http://www.w3.org/2005/07/scxml"><!--   node-size-and-position x=0 y=0 w=590 h=390  -->
+ <script>
+
+from API import TQuad_API
+TQuad = TQuad_API()
+distance = 100
+ </script>
+ <state id="ToutDroit"><!--   node-size-and-position x=50 y=108 w=75 h=75  -->
+  <onentry>
+   <script>
+
+TQuad.AvancerLongitudinal(0.2)
+   </script>
+  </onentry>
+  <transition cond="distance &lt; 10" target="ReculerTourner"><!--   edge-path [ReculerTourner]  x=242 y=100 pointx=0 pointy=12 offsetx=6 offsety=-2  --></transition>
+  <script>
+
+distance = TQuad.LireVariable('distance')
+  </script>
+ </state>
+ <state id="ReculerTourner"><!--   node-size-and-position x=332 y=110 w=120 h=80  -->
+  <onentry>
+   <script>
+
+TQuad.TensionMouvement(-2,0,2)
+   </script>
+  </onentry>
+  <transition cond="after(1)" target="ToutDroit"><!--   edge-path [ToutDroit]  pointx=0 pointy=14 offsetx=-6 offsety=0  --></transition>
+ </state>
+</scxml>

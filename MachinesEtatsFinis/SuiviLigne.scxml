@@ -1,0 +1,125 @@
+<scxml version="1.0" xmlns="http://www.w3.org/2005/07/scxml"><!--   node-size-and-position x=0 y=0 w=960 h=810  -->
+ <script>
+
+from API import TQuad_API
+TQuad = TQuad_API()
+
+vrefLong = 2
+vrefRot = 1
+vrefRotFort = 2.5
+vrefLat = 3
+seuil = 2
+L1 = 0
+L2 = 0
+L3 = 0
+ </script>
+<!-- node-size-and-position x=0 y=0 w=1042,14 h=1202   node-size-and-position x=0 y=0 w=1026,61 h=952   node-size-and-position x=0 y=0 w=1026,46 h=889   node-size-and-position x=0 y=0 w=991,11 h=889   node-size-and-position x=0 y=0 w=981,46 h=889   node-size-and-position x=0 y=0 w=981,71 h=889 -->
+ <parallel id="T-Quad"><!--   node-size-and-position x=20 y=40 w=880 h=750  --><!-- node-size-and-position x=20 y=43 w=1002,14 h=1139   node-size-and-position x=20 y=43 w=986,61 h=889   node-size-and-position x=20 y=43 w=986,46 h=826   node-size-and-position x=20 y=43 w=941,45 h=826   node-size-and-position x=20 y=43 w=941,71 h=826   node-size-and-position x=20 y=40 w=662,21 h=450 -->
+  <state id="Capteur2" initial="SurLigne2"><!--   node-size-and-position x=300 y=40 w=260 h=280  -->
+   <state id="HorsLigne2"><!--   node-size-and-position x=80 y=170 w=75 h=75  -->
+    <transition cond="L2 &lt; seuil" target="SurLigne2"><!--   edge-path [SurLigne2]  x=90 y=140 pointx=0 pointy=37 offsetx=-6 offsety=15  --></transition>
+    <script>
+L2 = TQuad.LireVariable('L2')
+    </script>
+   </state>
+   <state id="SurLigne2"><!--   node-size-and-position x=80 y=37 w=75 h=75  -->
+    <transition cond="L2 &gt;= seuil" target="HorsLigne2"><!--   edge-path [HorsLigne2]  x=150 y=140 pointx=0 pointy=45 offsetx=10 offsety=21  --></transition>
+    <script>
+L2 = TQuad.LireVariable('L2')
+    </script>
+   </state>
+  </state>
+  <state id="Capteur1" initial="SurLigne1"><!--   node-size-and-position x=20 y=40 w=250 h=280  -->
+   <state id="HorsLigne1"><!--   node-size-and-position x=90 y=170 w=75 h=75  -->
+    <transition cond="L1 &lt; seuil" target="SurLigne1"><!--   edge-path [SurLigne1]  x=90 y=140 pointx=0 pointy=35 offsetx=-10 offsety=-17  --></transition>
+    <script>
+L1 = TQuad.LireVariable('L1')
+    </script>
+   </state>
+   <state id="SurLigne1"><!--   node-size-and-position x=80 y=37 w=75 h=75  -->
+    <transition cond="L1 &gt;= seuil" target="HorsLigne1"><!--   edge-path [HorsLigne1]  x=160 y=137 pointx=0 pointy=40 offsetx=17 offsety=26  --></transition>
+    <script>
+L1 = TQuad.LireVariable('L1')
+    </script>
+   </state>
+  </state>
+  <state id="Capteur3" initial="SurLigne3"><!--   node-size-and-position x=590 y=40 w=260 h=280  -->
+   <state id="HorsLigne3"><!--   node-size-and-position x=90 y=170 w=75 h=75  -->
+    <transition cond="L3 &lt; seuil" target="SurLigne3"><!--   edge-path [SurLigne3]  x=100 y=140 pointx=0 pointy=37 offsetx=-6 offsety=-15  --></transition>
+    <script>
+L3 = TQuad.LireVariable('L3')
+    </script>
+   </state>
+   <state id="SurLigne3"><!--   node-size-and-position x=90 y=40 w=75 h=75  -->
+    <transition cond="L3 &gt;= seuil" target="HorsLigne3"><!--   edge-path [HorsLigne3]  x=170 y=150 pointx=0 pointy=40 offsetx=11 offsety=20  --></transition>
+    <script>
+L3 = TQuad.LireVariable('L3')
+    </script>
+   </state>
+  </state>
+  <state id="Commande" initial="ToutDroit1"><!--   node-size-and-position x=20 y=340 w=700 h=400  --><!-- node-size-and-position x=656,57 y=43 w=325,57 h=1076 -->
+   <state id="TournerDroiteFort"><!--   node-size-and-position x=520 y=240 w=110 h=75  -->
+    <onentry>
+     <script>
+TQuad.TensionMouvement(vrefLong,0,-vrefRotFort)
+     </script>
+    </onentry>
+<!-- node-size-and-position x=125,5 y=668 w=110 h=75   node-size-and-position x=130,5 y=604 w=110 h=75   node-size-and-position x=43,5 y=168 w=110 h=75   node-size-and-position x=43,5 y=168 w=110 h=75 -->
+    <transition event="L2" target="TournerDroite"><!--   edge-path [TournerDroite]  x=490 y=270 pointx=0 pointy=15 offsetx=0 offsety=-11  --></transition>
+   </state>
+   <state id="TournerDroite"><!--   node-size-and-position x=330 y=290 w=90 h=75  -->
+    <onentry>
+     <script>
+
+TQuad.TensionMouvement(vrefLong,0,-vrefRot)
+     </script>
+    </onentry>
+<!-- node-size-and-position x=23,5 y=543 w=90 h=75   node-size-and-position x=20,5 y=474 w=90 h=75   node-size-and-position x=53,5 y=293 w=90 h=75   node-size-and-position x=53,5 y=293 w=90 h=75 -->
+    <transition event="notL2" target="TournerDroiteFort"><!--   edge-path [TournerDroiteFort]  x=500 y=330 pointx=0 pointy=-11 offsetx=-3 offsety=0  --></transition>
+    <transition event="L1" target="ToutDroit1"><!--   edge-path [ToutDroit1]  x=280 y=257 pointx=0 pointy=-7 offsetx=17 offsety=13  --></transition>
+    <transition event="notL3" target="ToutDroit2"><!--   edge-path [ToutDroit2]  x=400 y=260 pointx=0 pointy=-5 offsetx=7 offsety=-5  --></transition>
+   </state>
+   <state id="TournerGauche"><!--   node-size-and-position x=330 y=50 w=90 h=75  -->
+    <onentry>
+     <script>
+
+TQuad.TensionMouvement(vrefLong,0,vrefRot)
+     </script>
+    </onentry>
+<!-- node-size-and-position x=53,5 y=293 w=90 h=75   node-size-and-position x=50,5 y=254 w=90 h=75   node-size-and-position x=23,5 y=543 w=90 h=75   node-size-and-position x=23,5 y=543 w=90 h=75 -->
+    <transition event="L3" target="ToutDroit1"><!--   edge-path [ToutDroit1]  x=230 y=77 pointx=0 pointy=-17 offsetx=7 offsety=0  --></transition>
+    <transition event="notL2" target="TournerGaucheFort"><!--   edge-path [TournerGaucheFort]  x=500 y=97 pointx=0 pointy=-13 offsetx=2 offsety=0  --></transition>
+    <transition event="notL1" target="ToutDroit2"><!--   edge-path [ToutDroit2]  x=410 y=150 pointx=0 pointy=26 offsetx=9 offsety=15  --></transition>
+   </state>
+   <state id="ToutDroit1"><!--   node-size-and-position x=20 y=50 w=75 h=75  -->
+    <onentry>
+     <script>
+
+TQuad.TensionMouvement(vrefLong,0,0)
+     </script>
+    </onentry>
+<!-- node-size-and-position x=10,5 y=77 w=75 h=75   node-size-and-position x=153,5 y=43 w=75 h=75   node-size-and-position x=115,5 y=43 w=75 h=75   node-size-and-position x=115,5 y=43 w=75 h=75 -->
+    <transition event="notL1" target="TournerDroite"><!--   edge-path [TournerDroite]  x=210 y=287 pointx=0 pointy=10 offsetx=35 offsety=45  --></transition>
+    <transition event="notL3" target="TournerGauche"><!--   edge-path [TournerGauche]  x=280 y=117 pointx=0 pointy=-19 offsetx=-1 offsety=0  --></transition>
+   </state>
+   <state id="TournerGaucheFort"><!--   node-size-and-position x=510 y=50 w=110 h=75  -->
+    <onentry>
+     <script>
+TQuad.TensionMouvement(vrefLong,0,vrefRotFort)
+     </script>
+    </onentry>
+    <transition event="L2" target="TournerGauche"><!--   edge-path [TournerGauche]  x=500 y=57  --></transition>
+   </state>
+   <state id="ToutDroit2"><!--   node-size-and-position x=340 y=170 w=75 h=75  -->
+    <onentry>
+     <script>
+TQuad.TensionMouvement(vrefLong,0,0)
+     </script>
+    </onentry>
+<!-- node-size-and-position x=380,5 y=167 w=75 h=75   node-size-and-position x=143,5 y=164 w=75 h=75   node-size-and-position x=48,5 y=293 w=75 h=75   node-size-and-position x=108,5 y=293 w=75 h=75 -->
+    <transition event="L3" target="TournerDroite"><!--   edge-path [TournerDroite]  x=350 y=260 pointx=0 pointy=-4 offsetx=-9 offsety=2  --></transition>
+    <transition event="L1" target="TournerGauche"><!--   edge-path [TournerGauche]  x=362 y=140 pointx=0 pointy=24 offsetx=0 offsety=-3  --></transition>
+   </state>
+  </state>
+ </parallel>
+</scxml>
